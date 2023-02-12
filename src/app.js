@@ -11,5 +11,5 @@ server.use(json);
 
 
 const PORT = process.env.PORT;
-
+console.log(process.env.DATABASE_URL);
 server.listen(PORT, () => console.log(`Server is running in port ${PORT}`));
