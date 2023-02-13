@@ -7,5 +7,5 @@ const router = Router();
 
 router.get("/rentals", getRentals);
 router.post("/rentals", validateSchema(rentalSchema), createRentals);
-
+router.post("/rentals/:id/return")
 export default router;

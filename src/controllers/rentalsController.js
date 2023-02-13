@@ -25,14 +25,17 @@ export async function createRentals(req, res) {
     const rentDate = dayjs().format();
 
     const games = await db.query('SELECT * FROM games WHERE id = $1', [gameId]);
+    const gamePricePerDay = games.rows[0].pricePerDay;
     const gameExists = games.rows.find(item => item.id === gameId && item.stockTotal > 0)
 
     if(!gameExists) return res.sendStatus(400);
 
-    const gamePricePerDay = games.rows[0].pricePerDay;
-
     if (games.rowCount === 0) return res.sendStatus(400);
     
+    const compareStock = await db.query(`SELECT * FROM rentals WHERE "gameId"=$1 AND "returnDate" IS NULL`, [gameId])
+
+    if (compareStock.rowCount >= games.rows[0].stockTotal) return res.sendStatus(400);
+
     const customerExists = await db.query('SELECT * FROM customers WHERE id = $1', [customerId]);
 
     if (customerExists.rowCount === 0) return res.sendStatus(400);
@@ -51,3 +54,13 @@ export async function createRentals(req, res) {
     }
 }
 
+export async function finishRental(req,res){
+
+    const { id } = req.params;
+
+    try {
+        
+    } catch (error) {
+        
+    }
+}
