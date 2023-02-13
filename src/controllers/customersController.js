@@ -26,7 +26,7 @@ export async function postCustomers(req, res){
       return res.sendStatus(409);
     }
 
-    if(name === "") return res.sendStatus(400);
+    if(!name || name === "") return res.sendStatus(400);
 
     try {
         await db.query(
