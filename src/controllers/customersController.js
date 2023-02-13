@@ -26,6 +26,8 @@ export async function postCustomers(req, res){
       return res.sendStatus(409);
     }
 
+    if(name === "") return res.sendStatus(400);
+
     try {
         await db.query(
             "INSERT INTO customers (name, phone, cpf, birthday) VALUES ($1, $2, $3, $4)",
@@ -46,7 +48,7 @@ export async function getCustomerById(req,res) {
 
         if (customer.rowCount === 0) return res.sendStatus(404);
 
-        return res.send(customer.rows)
+        return res.send(customer.rows[0]);
 
     } catch (error) {
         res.status(500).send(error.message);
@@ -58,7 +60,7 @@ export async function updateCustomers(req, res){
     const { id } = req.params;
 
     const cpfExists = await db.query("SELECT * FROM customers WHERE cpf ILIKE $1;", [cpf]);
-    
+
     if (cpfExists.rowCount > 0) return res.sendStatus(409);
 
     try {
