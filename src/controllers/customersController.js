@@ -26,8 +26,6 @@ export async function postCustomers(req, res){
       return res.sendStatus(409);
     }
 
-    if(!name || name === "") return res.sendStatus(400);
-
     try {
         await db.query(
             "INSERT INTO customers (name, phone, cpf, birthday) VALUES ($1, $2, $3, $4)",
