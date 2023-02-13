@@ -59,9 +59,9 @@ export async function updateCustomers(req, res){
     const { name, phone, cpf, birthday } = req.body;
     const { id } = req.params;
 
-    const cpfExists = await db.query("SELECT * FROM customers WHERE cpf ILIKE $1;", [cpf]);
+    // const cpfExists = await db.query("SELECT * FROM customers WHERE cpf ILIKE $1;", [cpf]);
 
-    if (cpfExists.rowCount > 0) return res.sendStatus(409);
+    // if (cpfExists.rowCount > 0) return res.sendStatus(409);
 
     try {
         await db.query("UPDATE customers SET name = $1, phone = $2, cpf = $3, birthday = $4 WHERE id = $5;", [name, phone, cpf, birthday, id]);
