@@ -25,7 +25,7 @@ export async function createRentals(req, res) {
     const rentDate = dayjs().format();
 
     const games = await db.query('SELECT * FROM games WHERE id = $1', [gameId]);
-    const gameExists = games.rows.find(item => item.id === gameId && value.stockTotal > 0)
+    const gameExists = games.rows.find(item => item.id === gameId && item.stockTotal > 0)
 
     if(!gameExists) return res.sendStatus(400);
 
