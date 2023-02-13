@@ -59,8 +59,7 @@ export async function updateCustomers(req, res){
     const { name, phone, cpf, birthday } = req.body;
     const { id } = req.params;
 
-    const cpfExists = await db.query('SELECT id FROM customers WHERE "cpf" = $1 AND "id" != $2', [cpf, id]
-    );
+    const cpfExists = await db.query('SELECT id FROM customers WHERE "cpf" = $1 AND "id" != $2', [cpf, id]);
     if (cpfExists.rowCount > 0) return res.sendStatus(409);
 
     try {
