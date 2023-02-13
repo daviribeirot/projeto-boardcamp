@@ -29,9 +29,9 @@ export async function createRentals(req, res) {
 
     if(!gameExists) return res.sendStatus(400);
 
-    const gamePricePerDay = gameExists.rows[0].pricePerDay;
+    const gamePricePerDay = games.rows[0].pricePerDay;
 
-    if (gameExists.rowCount === 0) return res.sendStatus(400);
+    if (games.rowCount === 0) return res.sendStatus(400);
     
     const customerExists = await db.query('SELECT * FROM customers WHERE id = $1', [customerId]);
 
